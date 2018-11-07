@@ -29,8 +29,8 @@
 					id="dropdown" data-toggle="dropdown" aria-haspopup="true"> 회원관리
 				</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown">
-						<a class="dropdown-item" href="#">로그인</a> <a class="dropdown-item"
-							href="#">회원가입</a> <a class="dropdown-item" href="#">로그아웃</a>
+						<a class="dropdown-item" href="user_login.jsp">로그인</a> <a class="dropdown-item"
+							href="user_join.jsp">회원가입</a> <a class="dropdown-item" href="user_logout.jsp">로그아웃</a>
 					</div></li>
 			</ul>
 			<form class="form-inline my-2 my-lg-0">
