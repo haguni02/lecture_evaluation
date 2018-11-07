@@ -224,7 +224,7 @@
 						</div>
 						<div class="form-row">
 							<div class="form-group col-sm-3">
-								<label>종합 평가</label> <select name="lectuerEvaluation"
+								<label>종합 평가</label> <select name="totalEvaluation"
 									class="form-control">
 									<option value="매우만족">매우만족</option>
 									<option value="만족">만족</option>
@@ -234,7 +234,7 @@
 								</select>
 							</div>
 							<div class="form-group col-sm-3">
-								<label>받은 성적</label> <select name="lectuerLevel"
+								<label>받은 성적</label> <select name="grade"
 									class="form-control">
 									<option value="A">A</option>
 									<option value="B">B</option>
@@ -244,7 +244,7 @@
 								</select>
 							</div>
 							<div class="form-group col-sm-3">
-								<label>강의 수준</label> <select name="lectuerLevel"
+								<label>강의 수준</label> <select name="lectureLevel"
 									class="form-control">
 									<option value="높음">높음</option>
 									<option value="중간" selected>중간</option>
