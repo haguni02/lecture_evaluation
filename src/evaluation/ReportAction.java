@@ -1,4 +1,4 @@
-package user;
+package evaluation;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,58 +19,65 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import util.Gmail;
-import util.SHA256;
+
 
 /**
- * Servlet implementation class EmailSendAction
+ * Servlet implementation class ReportAction
  */
-@WebServlet(name = "emailSendAction", urlPatterns = { "/emailSendAction" })
-public class EmailSendAction extends HttpServlet {
+@WebServlet("/reportAction")
+public class ReportAction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
 		
-		UserDAO userDAO = new UserDAO();
 		String userID = null;
 		
 		HttpSession session = request.getSession();
-		if (session.getAttribute("userID") != null) {
-			userID = (String) session.getAttribute("userID");
+		
+		if (session.getAttribute("userID") != null) 
+			userID = (String)session.getAttribute("userID");
+		
+		if (userID == null) 
+			response.sendRedirect("user_login.jsp");
+		
+		String reportTitle = null;
+		String reportContent = null;
+		
+		if (request.getParameter("reportTitle") != null) {
+			reportTitle = request.getParameter("reportTitle");
+		}
+		if (request.getParameter("reportContent") != null) {
+			reportContent = request.getParameter("reportContent");
 		}
 		
-		if (userID == null) {
+		if (reportTitle == null || reportContent == null) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("alert('로그인을 먼저 해주세요.');");
-			script.println("location.href = 'user_login.jsp'");
+			script.println("alert('입력이 안 된 사항이 있습니다.');");
+			script.println("history.back();");
 			script.println("</script>");
 			script.close();
 			return;
 		}
 		
-		boolean emailChecked = userDAO.getUserEmailChecked(userID);
-		if (emailChecked) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('이미 인증된 회원입니다.');");
-			script.println("location.href= 'index.jsp'");
-			script.println("</script>");
-			script.close();
-			return;
-		}
-		
-		String host = "http://localhost:8090/lecture_evaluation/";
 		String from = "haguni17@gmail.com";
-		String to = userDAO.getUserEmail(userID);
-		String subject = "강의평가를 위한 이메일 인증 메일입니다.";
-		String content = "다음 링크에 접속하여 이메일 인증을 진행해주세요." +
-				"<a href='" + host + "emailCheckAction?code=" + SHA256.getSHA256(to) + "'>이메일 인증하기</a>";
+		String to = "haguni17@gmail.com";
+		String subject = "강의평가에서 접수된 신고 메일입니다..";
+		String content = "신고자: " + userID + 
+				"<br>제목: " + reportTitle + 
+				"<br>내용: " + reportContent;
 		
 		Properties p = new Properties();
 		p.put("mail.smtp.user", from);
@@ -109,17 +116,10 @@ public class EmailSendAction extends HttpServlet {
 		
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
-		script.println("location.href= 'user_email_check.jsp'");
+		script.println("alert('신고접수가 완료되었습니다.');");
+		script.println("history.back();");
 		script.println("</script>");
 		script.close();
-		
-	}
-	
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 
 }

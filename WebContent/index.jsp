@@ -23,7 +23,7 @@
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("alert('로그인을 먼저 해주세요.');");
-		script.println("location.href = 'user_login.jsp'");
+		script.println("location.href = 'user_login.jsp';");
 		script.println("</script>");
 		script.close();
 		return;
@@ -34,7 +34,7 @@
 	if (emailChecked == false) {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
-		script.println("location.href = 'user_email_confirm.jsp'");
+		script.println("location.href = 'user_email_confirm.jsp';");
 		script.println("</script>");
 		script.close();
 		return;
@@ -207,7 +207,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="./evaluationRegister.jsp" method="post">
+					<form action="./evaluationRegister" method="post">
 						<div class="form-row">
 							<div class="form-group col-sm-6">
 								<label>강의명</label> <input type="text" name="lectureName"
@@ -321,14 +321,14 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="./report.jsp" method="post">
+					<form action="./reportAction" method="post">
 						<div class="form-group">
-							<label>제목</label> <input type="text" name="evaluationTitle"
+							<label>제목</label> <input type="text" name="reportTitle"
 								class="form-control" maxlength="30">
 						</div>
 						<div class="form-group">
 							<label>내용</label>
-							<textarea name="evaluationContent" class="form-control"
+							<textarea name="reportContent" class="form-control"
 								style="height: 180px" maxlength="2048"></textarea>
 						</div>
 
