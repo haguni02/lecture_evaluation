@@ -1,3 +1,5 @@
+<%@page import="user.UserDAO"%>
+<%@page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -13,6 +15,32 @@
 <link rel="stylesheet" href="./css/custom.css">
 
 </head>
+<%
+	String userID = null;
+	if (session.getAttribute("userID") != null) {
+		userID = (String) session.getAttribute("userID");
+	} else {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('로그인을 먼저 해주세요.');");
+		script.println("location.href = 'user_login.jsp'");
+		script.println("</script>");
+		script.close();
+		return;
+	}
+
+	UserDAO userDAO = new UserDAO();
+	boolean emailChecked = userDAO.getUserEmailChecked(userID);
+	if (emailChecked == false) {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("location.href = 'user_email_confirm.jsp'");
+		script.println("</script>");
+		script.close();
+		return;
+	}
+%>
+
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="index.jsp">강의평가 웹 사이트</a>
@@ -29,9 +57,20 @@
 					id="dropdown" data-toggle="dropdown" aria-haspopup="true"> 회원관리
 				</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown">
-						<a class="dropdown-item" href="user_login.jsp">로그인</a> <a class="dropdown-item"
-							href="user_join.jsp">회원가입</a> <a class="dropdown-item" href="user_logout.jsp">로그아웃</a>
+						<%
+							if (userID == null) {
+						%>
+						<a class="dropdown-item" href="user_login.jsp">로그인</a> <a
+							class="dropdown-item" href="user_join.jsp">회원가입</a>
+						<%
+							} else {
+						%>
+						<a class="dropdown-item" href="userLogoutAction">로그아웃</a>
+						<%
+							}
+						%>
 					</div></li>
+
 			</ul>
 			<form class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="search"
@@ -81,15 +120,15 @@
 						<span style="color: green;">(추천: 20)</span>
 					</div>
 					<div class="col-3 text-right">
-							<a onclick="return confirm('추천하시겠습니까?')"
-								href="./likeAction.jsp?evaluationID">추천</a> <a
-								onclick="return confirm('삭제하시겠습니까?')"
-								href="./deleteAction.jsp?evaluationID">삭제</a>
+						<a onclick="return confirm('추천하시겠습니까?')"
+							href="./likeAction.jsp?evaluationID">추천</a> <a
+							onclick="return confirm('삭제하시겠습니까?')"
+							href="./deleteAction.jsp?evaluationID">삭제</a>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="card bg-light mt-3">
 			<div class="card-header bg-light">
 				<div class="row">
@@ -113,15 +152,15 @@
 						<span style="color: green;">(추천: 20)</span>
 					</div>
 					<div class="col-3 text-right">
-							<a onclick="return confirm('추천하시겠습니까?')"
-								href="./likeAction.jsp?evaluationID">추천</a> <a
-								onclick="return confirm('삭제하시겠습니까?')"
-								href="./deleteAction.jsp?evaluationID">삭제</a>
+						<a onclick="return confirm('추천하시겠습니까?')"
+							href="./likeAction.jsp?evaluationID">추천</a> <a
+							onclick="return confirm('삭제하시겠습니까?')"
+							href="./deleteAction.jsp?evaluationID">삭제</a>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="card bg-light mt-3">
 			<div class="card-header bg-light">
 				<div class="row">
@@ -145,10 +184,10 @@
 						<span style="color: green;">(추천: 20)</span>
 					</div>
 					<div class="col-3 text-right">
-							<a onclick="return confirm('추천하시겠습니까?')"
-								href="./likeAction.jsp?evaluationID">추천</a> <a
-								onclick="return confirm('삭제하시겠습니까?')"
-								href="./deleteAction.jsp?evaluationID">삭제</a>
+						<a onclick="return confirm('추천하시겠습니까?')"
+							href="./likeAction.jsp?evaluationID">추천</a> <a
+							onclick="return confirm('삭제하시겠습니까?')"
+							href="./deleteAction.jsp?evaluationID">삭제</a>
 					</div>
 				</div>
 			</div>
@@ -234,8 +273,7 @@
 								</select>
 							</div>
 							<div class="form-group col-sm-3">
-								<label>받은 성적</label> <select name="grade"
-									class="form-control">
+								<label>받은 성적</label> <select name="grade" class="form-control">
 									<option value="A">A</option>
 									<option value="B">B</option>
 									<option value="C" selected>C</option>
@@ -306,9 +344,8 @@
 	</div>
 
 
-	<footer class="bg-light mt-4 p-4 text-center">
-		Copyright &copy; 2018 kim-hak-yoon All Rights Reserved.
-	</footer>
+	<footer class="bg-light mt-4 p-4 text-center"> Copyright
+		&copy; 2018 kim-hak-yoon All Rights Reserved. </footer>
 	<!-- 제이쿼리 자바스크립트 추가하기 -->
 	<script src="./js/jquery.min.js"></script>
 	<!-- 파퍼 자바스크립트 추가하기 -->

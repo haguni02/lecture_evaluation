@@ -9,13 +9,15 @@ import util.DatabaseUtil;
 
 public class UserDAO {
 	
+	DatabaseUtil databaseUtil = DatabaseUtil.getInstance();
+	
 	public int login(String userID, String userPassword) {
 		String SQL = "SELECT userPassword FROM USER WHERE userID = ?";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			conn = DatabaseUtil.getConnection();
+			conn = databaseUtil.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, userID);
 			rs = pstmt.executeQuery();
@@ -48,7 +50,7 @@ public class UserDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			conn = DatabaseUtil.getConnection();
+			conn = databaseUtil.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, user.getUserID());
 			pstmt.setString(2, user.getUserPassword());
@@ -75,7 +77,7 @@ public class UserDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			conn = DatabaseUtil.getConnection();
+			conn = databaseUtil.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, userID);
 			rs = pstmt.executeQuery();
@@ -102,7 +104,7 @@ public class UserDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			conn = DatabaseUtil.getConnection();
+			conn = databaseUtil.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, userID);
 			rs = pstmt.executeQuery();
@@ -129,7 +131,7 @@ public class UserDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			conn = DatabaseUtil.getConnection();
+			conn = databaseUtil.getConnection();
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, userID);
 			pstmt.executeUpdate();
