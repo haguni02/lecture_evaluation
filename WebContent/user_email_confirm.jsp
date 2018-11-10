@@ -60,9 +60,9 @@
 						%>
 					</div></li>
 			</ul>
-			<form class="form-inline my-2 my-lg-0">
+			<form action="./index.jsp" method="get" class="form-inline my-2 my-lg-0">
 				<input class="form-control mr-sm-2" type="search"
-					placeholder="내용을 입력하세요"> <input
+					name="search" placeholder="내용을 입력하세요"> <input
 					class="btn btn-outline-success my-2 my-sm-0" type="submit"
 					value="검색">
 			</form>

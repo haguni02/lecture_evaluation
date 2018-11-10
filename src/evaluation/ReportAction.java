@@ -108,7 +108,7 @@ public class ReportAction extends HttpServlet {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('오류가 발생했습니다.');");
-			script.println("location.href= 'user_login.jsp'");
+			script.println("location.href= 'user_login.jsp';");
 			script.println("</script>");
 			script.close();
 			return;
@@ -117,7 +117,7 @@ public class ReportAction extends HttpServlet {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("alert('신고접수가 완료되었습니다.');");
-		script.println("history.back();");
+		script.println("location.href = 'index.jsp';");
 		script.println("</script>");
 		script.close();
 	}
