@@ -137,7 +137,7 @@
 			if (i == 5) break;
 			EvaluationDTO evaluation = evaluationList.get(i);
 %>
-		<%-- 임시 데이터 --%>
+		<%-- 평가글 --%>
 		<div class="card bg-light mt-3">
 			<div class="card-header bg-light">
 				<div class="row">
@@ -162,9 +162,9 @@
 					</div>
 					<div class="col-3 text-right">
 						<a onclick="return confirm('추천하시겠습니까?')"
-							href="./likeAction.jsp?evaluationID">추천</a> <a
-							onclick="return confirm('삭제하시겠습니까?')"
-							href="./deleteAction.jsp?evaluationID">삭제</a>
+							href="./likeAction?evaluationID=<%= evaluation.getEvaluationID()%>">추천</a> 
+						<a onclick="return confirm('삭제하시겠습니까?')"
+							href="./deleteAction?evaluationID=<%= evaluation.getEvaluationID()%>">삭제</a>
 					</div>
 				</div>
 			</div>
